@@ -98,6 +98,13 @@ BUILD_PATH_NDM=ndm_daemonset
 # Name of the image for NDM DaemoneSet
 DOCKER_IMAGE_NDM:=${IMAGE_ORG}/node-disk-manager-${XC_ARCH}:ci
 
+# Specify the NDM GRPC binary name
+NODE_DISK_MANAGER_GRPC=ndm-grpc
+# Specify the sub path under ./cmd/ for NDM DaemonSet GRPC
+BUILD_PATH_NDM_GRPC=ndm-grpc
+# Name of the image for NDM DaemoneSet GRPC
+DOCKER_IMAGE_NDM_GRPC:=${IMAGE_ORG}/node-disk-manager-grpc-${XC_ARCH}:ci
+
 # Initialize the NDM Operator variables
 # Specify the NDM Operator binary name
 NODE_DISK_OPERATOR=ndo
@@ -188,6 +195,10 @@ integration-test:
 Dockerfile.ndm: ./build/ndm-daemonset/Dockerfile.in
 	sed -e 's|@BASEIMAGE@|$(BASEIMAGE)|g' $< >$@
 
+.PHONY: Dockerfile.grpc
+Dockerfile.ndm: ./build/ndm-grpc/Dockerfile.in
+	sed -e 's|@BASEIMAGE@|$(BASEIMAGE)|g' $< >$@
+
 .PHONY: Dockerfile.ndo
 Dockerfile.ndo: ./build/ndm-operator/Dockerfile.in
 	sed -e 's|@BASEIMAGE@|$(BASEIMAGE)|g' $< >$@
@@ -210,6 +221,22 @@ docker.ndm: build.ndm Dockerfile.ndm
 	@sudo docker build -t "$(DOCKER_IMAGE_NDM)" ${DBUILD_ARGS} -f Dockerfile.ndm .
 	@echo "--> Build docker image: $(DOCKER_IMAGE_NDM)"
 	@echo
+
+.PHONY: build.grpc
+build.grpc:
+	@echo '--> Building node-disk-manager-grpc binary...'
+	@pwd
+	@CTLNAME=${NODE_DISK_MANAGER_GRPC} BUILDPATH=${BUILD_PATH_NDM_GRPC} sh -c "'$(PWD)/build/build.sh'"
+	@echo '--> Built binary.'
+	@echo
+
+.PHONY: docker.grpc
+docker.ndm: build.grpc Dockerfile.ndm 
+	@echo "--> Building docker image for ndm-daemonset-grpc..."
+	@sudo docker build -t "$(DOCKER_IMAGE_NDM_GRPC)" ${DBUILD_ARGS} -f Dockerfile.ndm .
+	@echo "--> Build docker image: $(DOCKER_IMAGE_NDM_GRPC)"
+	@echo
+
 
 .PHONY: build.ndo
 build.ndo:
@@ -278,5 +305,6 @@ license-check-go:
 .PHONY: push
 push: 
 	DIMAGE=${IMAGE_ORG}/node-disk-manager-${XC_ARCH} ./build/push;
+	DIMAGE=${IMAGE_ORG}/node-disk-manager-grpc-${XC_ARCH} ./build/push;
 	DIMAGE=${IMAGE_ORG}/node-disk-operator-${XC_ARCH} ./build/push;
 	DIMAGE=${IMAGE_ORG}/node-disk-exporter-${XC_ARCH} ./build/push;

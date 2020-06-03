@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+
+
+service Version {
+    rpc FindVersion (Null) returns (VersionInfo);
+  }
+
+service ServiceInfo{
+    rpc FindNodeName(Null) returns (NodeName) ;
+    rpc FindServiceStatus(ServiceName) returns (ServiceStatus);
+  }
+  
+message ServiceName{
+  string Name = 1;
+}
+
+message ServiceStatus{
+  string Status = 1 ;
+}
+
+message VersionInfo {
+    string Version = 1;
+    string GitCommit = 2;
+}
+
+
+message NodeName {
+  string NodeName = 1; 
+}
+
+message Null{
+
+
+}
