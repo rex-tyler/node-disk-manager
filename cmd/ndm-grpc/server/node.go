@@ -22,6 +22,7 @@ import (
 	"google.golang.org/grpc"
 )
 
+//NodeType is for node info
 type NodeType struct {
 	log logrus.Logger
 }
