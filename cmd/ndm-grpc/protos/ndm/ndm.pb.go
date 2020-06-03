@@ -281,14 +281,11 @@ var file_ndm_proto_rawDesc = []byte{
 	0x64, 0x65, 0x4e, 0x61, 0x6d, 0x65, 0x22, 0x06, 0x0a, 0x04, 0x4e, 0x75, 0x6c, 0x6c, 0x32, 0x2d,
 	0x0a, 0x07, 0x56, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x12, 0x22, 0x0a, 0x0b, 0x46, 0x69, 0x6e,
 	0x64, 0x56, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x12, 0x05, 0x2e, 0x4e, 0x75, 0x6c, 0x6c, 0x1a,
-	0x0c, 0x2e, 0x56, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x49, 0x6e, 0x66, 0x6f, 0x32, 0x62, 0x0a,
+	0x0c, 0x2e, 0x56, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x49, 0x6e, 0x66, 0x6f, 0x32, 0x2f, 0x0a,
 	0x0b, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x12, 0x20, 0x0a, 0x0c,
 	0x46, 0x69, 0x6e, 0x64, 0x4e, 0x6f, 0x64, 0x65, 0x4e, 0x61, 0x6d, 0x65, 0x12, 0x05, 0x2e, 0x4e,
-	0x75, 0x6c, 0x6c, 0x1a, 0x09, 0x2e, 0x4e, 0x6f, 0x64, 0x65, 0x4e, 0x61, 0x6d, 0x65, 0x12, 0x31,
-	0x0a, 0x11, 0x46, 0x69, 0x6e, 0x64, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x53, 0x74, 0x61,
-	0x74, 0x75, 0x73, 0x12, 0x0c, 0x2e, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x4e, 0x61, 0x6d,
-	0x65, 0x1a, 0x0e, 0x2e, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x53, 0x74, 0x61, 0x74, 0x75,
-	0x73, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x75, 0x6c, 0x6c, 0x1a, 0x09, 0x2e, 0x4e, 0x6f, 0x64, 0x65, 0x4e, 0x61, 0x6d, 0x65, 0x62, 0x06,
+	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -314,12 +311,10 @@ var file_ndm_proto_goTypes = []interface{}{
 var file_ndm_proto_depIdxs = []int32{
 	4, // 0: Version.FindVersion:input_type -> Null
 	4, // 1: ServiceInfo.FindNodeName:input_type -> Null
-	0, // 2: ServiceInfo.FindServiceStatus:input_type -> ServiceName
-	2, // 3: Version.FindVersion:output_type -> VersionInfo
-	3, // 4: ServiceInfo.FindNodeName:output_type -> NodeName
-	1, // 5: ServiceInfo.FindServiceStatus:output_type -> ServiceStatus
-	3, // [3:6] is the sub-list for method output_type
-	0, // [0:3] is the sub-list for method input_type
+	2, // 2: Version.FindVersion:output_type -> VersionInfo
+	3, // 3: ServiceInfo.FindNodeName:output_type -> NodeName
+	2, // [2:4] is the sub-list for method output_type
+	0, // [0:2] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
 	0, // [0:0] is the sub-list for extension extendee
 	0, // [0:0] is the sub-list for field type_name
@@ -497,7 +492,6 @@ var _Version_serviceDesc = grpc.ServiceDesc{
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type ServiceInfoClient interface {
 	FindNodeName(ctx context.Context, in *Null, opts ...grpc.CallOption) (*NodeName, error)
-	FindServiceStatus(ctx context.Context, in *ServiceName, opts ...grpc.CallOption) (*ServiceStatus, error)
 }
 
 type serviceInfoClient struct {
@@ -517,19 +511,9 @@ func (c *serviceInfoClient) FindNodeName(ctx context.Context, in *Null, opts ...
 	return out, nil
 }
 
-func (c *serviceInfoClient) FindServiceStatus(ctx context.Context, in *ServiceName, opts ...grpc.CallOption) (*ServiceStatus, error) {
-	out := new(ServiceStatus)
-	err := c.cc.Invoke(ctx, "/ServiceInfo/FindServiceStatus", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // ServiceInfoServer is the server API for ServiceInfo service.
 type ServiceInfoServer interface {
 	FindNodeName(context.Context, *Null) (*NodeName, error)
-	FindServiceStatus(context.Context, *ServiceName) (*ServiceStatus, error)
 }
 
 // UnimplementedServiceInfoServer can be embedded to have forward compatible implementations.
@@ -538,9 +522,6 @@ type UnimplementedServiceInfoServer struct {
 
 func (*UnimplementedServiceInfoServer) FindNodeName(context.Context, *Null) (*NodeName, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method FindNodeName not implemented")
-}
-func (*UnimplementedServiceInfoServer) FindServiceStatus(context.Context, *ServiceName) (*ServiceStatus, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method FindServiceStatus not implemented")
 }
 
 func RegisterServiceInfoServer(s *grpc.Server, srv ServiceInfoServer) {
@@ -565,24 +546,6 @@ func _ServiceInfo_FindNodeName_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
-func _ServiceInfo_FindServiceStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ServiceName)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ServiceInfoServer).FindServiceStatus(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/ServiceInfo/FindServiceStatus",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceInfoServer).FindServiceStatus(ctx, req.(*ServiceName))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 var _ServiceInfo_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "ServiceInfo",
 	HandlerType: (*ServiceInfoServer)(nil),
@@ -590,10 +553,6 @@ var _ServiceInfo_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "FindNodeName",
 			Handler:    _ServiceInfo_FindNodeName_Handler,
-		},
-		{
-			MethodName: "FindServiceStatus",
-			Handler:    _ServiceInfo_FindServiceStatus_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

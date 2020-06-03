@@ -8,7 +8,7 @@ service Version {
 
 service ServiceInfo{
     rpc FindNodeName(Null) returns (NodeName) ;
-    rpc FindServiceStatus(ServiceName) returns (ServiceStatus);
+    // rpc FindServiceStatus(ServiceName) returns (ServiceStatus);
   }
   
 message ServiceName{
@@ -30,6 +30,5 @@ message NodeName {
 }
 
 message Null{
-
 
 }

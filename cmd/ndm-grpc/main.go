@@ -30,11 +30,14 @@ func main() {
 	log.Out = os.Stdout
 
 	gs := grpc.NewServer()
-	vs := server.NewVersion(*log)
+	vs := server.NewVersion(log)
+	ns := server.NewNode(log)
 
 	reflection.Register(gs)
 
 	protos.RegisterVersionServer(gs, vs)
+
+	protos.RegisterServiceInfoServer(gs, ns)
 
 	l, err := net.Listen("tcp", "0.0.0.0:3333")
 	if err != nil {
