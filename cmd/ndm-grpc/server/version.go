@@ -23,11 +23,11 @@ import (
 
 // VersionType helps in creation of constructor
 type VersionType struct {
-	log logrus.Logger
+	log *logrus.Logger
 }
 
 // NewVersion is a constructor
-func NewVersion(l logrus.Logger) *VersionType {
+func NewVersion(l *logrus.Logger) *VersionType {
 	return &VersionType{l}
 }
 
