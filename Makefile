@@ -196,7 +196,7 @@ Dockerfile.ndm: ./build/ndm-daemonset/Dockerfile.in
 	sed -e 's|@BASEIMAGE@|$(BASEIMAGE)|g' $< >$@
 
 .PHONY: Dockerfile.grpc
-Dockerfile.ndm: ./build/ndm-grpc/Dockerfile.in
+Dockerfile.grpc: ./build/ndm-grpc/Dockerfile.in
 	sed -e 's|@BASEIMAGE@|$(BASEIMAGE)|g' $< >$@
 
 .PHONY: Dockerfile.ndo
@@ -231,7 +231,7 @@ build.grpc:
 	@echo
 
 .PHONY: docker.grpc
-docker.ndm: build.grpc Dockerfile.ndm 
+docker.grpc: build.grpc Dockerfile.grpc 
 	@echo "--> Building docker image for ndm-daemonset-grpc..."
 	@sudo docker build -t "$(DOCKER_IMAGE_NDM_GRPC)" ${DBUILD_ARGS} -f Dockerfile.ndm .
 	@echo "--> Build docker image: $(DOCKER_IMAGE_NDM_GRPC)"
@@ -281,9 +281,11 @@ clean: header
 	@echo '--> Cleaning directory...'
 	rm -rf bin
 	rm -rf ${GOPATH}/bin/${NODE_DISK_MANAGER}
+	rm -rf ${GOPATH}/bin/${NODE_DISK_MANAGER_GRPC}
 	rm -rf ${GOPATH}/bin/${NODE_DISK_OPERATOR}
 	rm -rf ${GOPATH}/bin/${NODE_DISK_EXPORTER}
 	rm -rf Dockerfile.ndm
+	rm -rf Dockerfile.grpc
 	rm -rf Dockerfile.ndo
 	rm -rf Dockerfile.exporter
 	@echo '--> Done cleaning.'
