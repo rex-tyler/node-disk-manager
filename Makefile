@@ -233,7 +233,7 @@ build.grpc:
 .PHONY: docker.grpc
 docker.grpc: build.grpc Dockerfile.grpc 
 	@echo "--> Building docker image for ndm-daemonset-grpc..."
-	@sudo docker build -t "$(DOCKER_IMAGE_NDM_GRPC)" ${DBUILD_ARGS} -f Dockerfile.ndm .
+	@sudo docker build -t "$(DOCKER_IMAGE_NDM_GRPC)" ${DBUILD_ARGS} -f Dockerfile.grpc .
 	@echo "--> Build docker image: $(DOCKER_IMAGE_NDM_GRPC)"
 	@echo
 
