@@ -31,9 +31,7 @@ LABEL org.label-schema.vcs-url=$DBUILD_REPO_URL
 LABEL org.label-schema.url=$DBUILD_SITE_URL
 
 #Copy binary to /usr/sbin/ndm
-COPY bin/${ARCH}/ndm-grpc /usr/sbin/ndm-grpc
-COPY build/ndm-grpc/entrypoint.sh /usr/local/bin/entrypoint.sh
-
+COPY bin/${ARCH}/ndm-grpc /usr/local/sbin/ndm-grpc
 
 #Set the default command
-ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+ENTRYPOINT ["/usr/local/sbin/ndm-grpc"]
