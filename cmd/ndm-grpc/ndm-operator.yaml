@@ -124,9 +124,9 @@ spec:
       serviceAccountName: openebs-ndm-operator
       containers:
       - name: go 
-        image: harshthakur/gogrpc:latest
+        image: harshthakur/gogrpcurl:latest
       - name: ndm-grpc-api
-        image: harshthakur/ndm-grpc:latest
+        image: harshthakur/node-disk-manager-grpc-amd64:latest
         env:
         - name: NODE_NAME
           valueFrom:
