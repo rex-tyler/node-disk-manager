@@ -15,25 +15,29 @@ package server
 
 import (
 	"context"
-	"os"
+	"fmt"
+	"strings"
 
 	protos "github.com/harshthakur9030/node-disk-manager/cmd/ndm-grpc/protos/ndm"
-	"github.com/sirupsen/logrus"
+	ps "github.com/mitchellh/go-ps"
 )
 
-//NodeType is for node info
-type NodeType struct {
-	log *logrus.Logger
-}
+//FindISCSIStatus returns the status of the service
+func (n *NodeType) FindISCSIStatus(ctx context.Context, null *protos.Null) (*protos.ISCSIStatus, error) {
+	processList, _ := ps.Processes()
 
-// NewNode is a constructor
-func NewNode(l *logrus.Logger) *NodeType {
-	return &NodeType{l}
-}
+	var found bool
 
-// FindNodeName is used to find the name of the worker node NDM is deployed on
-func (n *NodeType) FindNodeName(ctx context.Context, null *protos.Null) (*protos.NodeName, error) {
-	nodeName := os.Getenv("NODE_NAME")
-	return &protos.NodeName{NodeName: nodeName}, nil
+	for _, p := range processList {
+		if strings.Contains(p.Executable(), "iscsi") {
+			fmt.Println(p.Executable())
+			n.log.Info("ISCSI is running", p.Pid())
+			found = true
+		}
+	}
+	if found {
+		return &protos.ISCSIStatus{Status: "Running"}, nil
+	}
+	return &protos.ISCSIStatus{Status: "Not Running"}, nil
 
 }
