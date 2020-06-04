@@ -11,41 +11,31 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package main
+package server
 
 import (
-	"net"
-	"os"
+	"context"
+	"strings"
 
 	protos "github.com/harshthakur9030/node-disk-manager/pkg/ndm-grpc/protos/ndm"
-	"github.com/harshthakur9030/node-disk-manager/pkg/ndm-grpc/server"
-	"github.com/sirupsen/logrus"
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/reflection"
+	ps "github.com/mitchellh/go-ps"
 )
 
-func main() {
+//FindISCSIStatus returns the status of the service
+func (n *NodeType) FindISCSIStatus(ctx context.Context, null *protos.Null) (*protos.ISCSIStatus, error) {
+	processList, _ := ps.Processes()
 
-	log := logrus.New()
-	log.Out = os.Stdout
+	var found bool
 
-	gs := grpc.NewServer()
-	vs := server.NewVersion(log)
-	ns := server.NewNode(log)
-
-	reflection.Register(gs)
-
-	protos.RegisterVersionServer(gs, vs)
-
-	protos.RegisterServiceInfoServer(gs, ns)
-
-	l, err := net.Listen("tcp", "0.0.0.0:9090")
-	if err != nil {
-		log.Error("Unable to listen", err)
-		os.Exit(1)
+	for _, p := range processList {
+		if strings.Contains(p.Executable(), "iscsid") {
+			n.log.Infof("%v is running with process id %v", p.Executable(), p.Pid())
+			found = true
+		}
 	}
-
-	log.Info("Starting server")
-	gs.Serve(l)
+	if found {
+		return &protos.ISCSIStatus{Status: "Running"}, nil
+	}
+	return &protos.ISCSIStatus{Status: "Not Running"}, nil
 
 }
