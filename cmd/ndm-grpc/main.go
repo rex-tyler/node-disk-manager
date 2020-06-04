@@ -45,7 +45,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	log.Info("Starting server")
+	log.Info("Starting server at 9090")
 	gs.Serve(l)
 
 }
