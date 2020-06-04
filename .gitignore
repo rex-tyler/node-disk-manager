@@ -6,5 +6,7 @@ tags
 Dockerfile.ndm
 Dockerfile.ndo
 Dockerfile.exporter
+Dockerfile.grpc
+service.yaml
 coverage.txt
 build/_output

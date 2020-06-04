@@ -17,8 +17,8 @@ import (
 	"net"
 	"os"
 
-	protos "github.com/harshthakur9030/node-disk-manager/cmd/ndm-grpc/protos/ndm"
-	"github.com/harshthakur9030/node-disk-manager/cmd/ndm-grpc/server"
+	"github.com/harshthakur9030/node-disk-manager/pkg/grpc-server"
+	protos "github.com/harshthakur9030/node-disk-manager/pkg/protos/ndm"
 	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
