@@ -29,12 +29,19 @@ func main() {
 	log := logrus.New()
 	log.Out = os.Stdout
 
+	// Creating a grpc server, use WithInsecure to allow http connections
 	gs := grpc.NewServer()
+
+	// Creates an instance of Version
 	vs := server.NewVersion(log)
+
+	// Creates an instance of Node
 	ns := server.NewNode(log)
 
+	// This helps clients determine which services are available to call
 	reflection.Register(gs)
 
+	// Similar to registring handlers for http
 	protos.RegisterVersionServer(gs, vs)
 
 	protos.RegisterServiceInfoServer(gs, ns)
@@ -45,6 +52,7 @@ func main() {
 		os.Exit(1)
 	}
 
+	// Listen for requests
 	log.Info("Starting server at 9090")
 	gs.Serve(l)
 

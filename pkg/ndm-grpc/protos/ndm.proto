@@ -4,18 +4,18 @@ package ndm;
 
 option go_package="github.com/openebs/node-disk-manager/pkg/ndm-grpc/protos/ndm";
 
-service Version {
+service Info {
     rpc FindVersion (Null) returns (VersionInfo);
+    rpc FindNodeName(Null) returns (NodeName) ;
   }
 
-service ServiceInfo{
-    rpc FindNodeName(Null) returns (NodeName) ;
-    rpc FindISCSIStatus(Null) returns (ISCSIStatus);
+service ISCSI{
+    rpc Status(Null) returns (ISCSIStatus);
   }
 
 
 message ISCSIStatus{
-  string Status = 1 ;
+  bool Status = 1 ;
 }
 
 message VersionInfo {
