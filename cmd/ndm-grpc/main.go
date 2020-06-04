@@ -32,19 +32,19 @@ func main() {
 	// Creating a grpc server, use WithInsecure to allow http connections
 	gs := grpc.NewServer()
 
-	// Creates an instance of Version
-	vs := server.NewVersion(log)
+	// Creates an instance of Info
+	is := server.NewInfo(log)
 
 	// Creates an instance of Node
-	ns := server.NewNode(log)
+	ns := server.NewService(log)
 
 	// This helps clients determine which services are available to call
 	reflection.Register(gs)
 
 	// Similar to registring handlers for http
-	protos.RegisterVersionServer(gs, vs)
+	protos.RegisterInfoServer(gs, is)
 
-	protos.RegisterServiceInfoServer(gs, ns)
+	protos.RegisterISCSIServer(gs, ns)
 
 	l, err := net.Listen("tcp", "0.0.0.0:9090")
 	if err != nil {

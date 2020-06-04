@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package ndm;
 
-option go_package="github.com/openebs/node-disk-manager/pkg/ndm-grpc/protos/ndm";
+option go_package="ndm";
 
 service Info {
     rpc FindVersion (Null) returns (VersionInfo);

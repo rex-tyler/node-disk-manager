@@ -14,27 +14,41 @@ limitations under the License.
 package server
 
 import (
-	"context"
 	"os"
 
 	protos "github.com/harshthakur9030/node-disk-manager/pkg/ndm-grpc/protos/ndm"
+	"github.com/openebs/node-disk-manager/pkg/version"
 	"github.com/sirupsen/logrus"
+
+	"context"
 )
 
-//NodeType is for node info
-type NodeType struct {
+// InfoType helps in creation of constructor
+type InfoType struct {
 	log *logrus.Logger
 }
 
-// NewNode is a constructor
-func NewNode(l *logrus.Logger) *NodeType {
-	return &NodeType{l}
+// NewInfo is a constructor
+func NewInfo(l *logrus.Logger) *InfoType {
+	return &InfoType{l}
+}
+
+// FindVersion detects the version and gitCommit of NDM
+func (n *InfoType) FindVersion(ctx context.Context, null *protos.Null) (*protos.VersionInfo, error) {
+
+	n.log.Infof("Print Version : %v , commit hash : %v", version.GetVersion(), version.GetGitCommit())
+
+	return &protos.VersionInfo{Version: version.GetVersion(), GitCommit: version.GetGitCommit()}, nil
+
 }
 
 // FindNodeName is used to find the name of the worker node NDM is deployed on
-func (n *NodeType) FindNodeName(ctx context.Context, null *protos.Null) (*protos.NodeName, error) {
+func (n *InfoType) FindNodeName(ctx context.Context, null *protos.Null) (*protos.NodeName, error) {
+
 	nodeName := os.Getenv("NODE_NAME")
-	n.log.Infof("Node name is %v", nodeName)
+
+	n.log.Infof("Node name is : %v", nodeName)
+
 	return &protos.NodeName{NodeName: nodeName}, nil
 
 }

@@ -34,7 +34,7 @@ type ISCSIStatus struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Status string `protobuf:"bytes,1,opt,name=Status,proto3" json:"Status,omitempty"`
+	Status bool `protobuf:"varint,1,opt,name=Status,proto3" json:"Status,omitempty"`
 }
 
 func (x *ISCSIStatus) Reset() {
@@ -69,11 +69,11 @@ func (*ISCSIStatus) Descriptor() ([]byte, []int) {
 	return file_ndm_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *ISCSIStatus) GetStatus() string {
+func (x *ISCSIStatus) GetStatus() bool {
 	if x != nil {
 		return x.Status
 	}
-	return ""
+	return false
 }
 
 type VersionInfo struct {
@@ -221,7 +221,7 @@ var File_ndm_proto protoreflect.FileDescriptor
 var file_ndm_proto_rawDesc = []byte{
 	0x0a, 0x09, 0x6e, 0x64, 0x6d, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12, 0x03, 0x6e, 0x64, 0x6d,
 	0x22, 0x25, 0x0a, 0x0b, 0x49, 0x53, 0x43, 0x53, 0x49, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12,
-	0x16, 0x0a, 0x06, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52,
+	0x16, 0x0a, 0x06, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x08, 0x52,
 	0x06, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x22, 0x45, 0x0a, 0x0b, 0x56, 0x65, 0x72, 0x73, 0x69,
 	0x6f, 0x6e, 0x49, 0x6e, 0x66, 0x6f, 0x12, 0x18, 0x0a, 0x07, 0x56, 0x65, 0x72, 0x73, 0x69, 0x6f,
 	0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x56, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e,
@@ -229,18 +229,17 @@ var file_ndm_proto_rawDesc = []byte{
 	0x01, 0x28, 0x09, 0x52, 0x09, 0x47, 0x69, 0x74, 0x43, 0x6f, 0x6d, 0x6d, 0x69, 0x74, 0x22, 0x26,
 	0x0a, 0x08, 0x4e, 0x6f, 0x64, 0x65, 0x4e, 0x61, 0x6d, 0x65, 0x12, 0x1a, 0x0a, 0x08, 0x4e, 0x6f,
 	0x64, 0x65, 0x4e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x4e, 0x6f,
-	0x64, 0x65, 0x4e, 0x61, 0x6d, 0x65, 0x22, 0x06, 0x0a, 0x04, 0x4e, 0x75, 0x6c, 0x6c, 0x32, 0x35,
-	0x0a, 0x07, 0x56, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x12, 0x2a, 0x0a, 0x0b, 0x46, 0x69, 0x6e,
-	0x64, 0x56, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x12, 0x09, 0x2e, 0x6e, 0x64, 0x6d, 0x2e, 0x4e,
-	0x75, 0x6c, 0x6c, 0x1a, 0x10, 0x2e, 0x6e, 0x64, 0x6d, 0x2e, 0x56, 0x65, 0x72, 0x73, 0x69, 0x6f,
-	0x6e, 0x49, 0x6e, 0x66, 0x6f, 0x32, 0x67, 0x0a, 0x0b, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65,
-	0x49, 0x6e, 0x66, 0x6f, 0x12, 0x28, 0x0a, 0x0c, 0x46, 0x69, 0x6e, 0x64, 0x4e, 0x6f, 0x64, 0x65,
-	0x4e, 0x61, 0x6d, 0x65, 0x12, 0x09, 0x2e, 0x6e, 0x64, 0x6d, 0x2e, 0x4e, 0x75, 0x6c, 0x6c, 0x1a,
-	0x0d, 0x2e, 0x6e, 0x64, 0x6d, 0x2e, 0x4e, 0x6f, 0x64, 0x65, 0x4e, 0x61, 0x6d, 0x65, 0x12, 0x2e,
-	0x0a, 0x0f, 0x46, 0x69, 0x6e, 0x64, 0x49, 0x53, 0x43, 0x53, 0x49, 0x53, 0x74, 0x61, 0x74, 0x75,
-	0x73, 0x12, 0x09, 0x2e, 0x6e, 0x64, 0x6d, 0x2e, 0x4e, 0x75, 0x6c, 0x6c, 0x1a, 0x10, 0x2e, 0x6e,
-	0x64, 0x6d, 0x2e, 0x49, 0x53, 0x43, 0x53, 0x49, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x62, 0x06,
-	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x64, 0x65, 0x4e, 0x61, 0x6d, 0x65, 0x22, 0x06, 0x0a, 0x04, 0x4e, 0x75, 0x6c, 0x6c, 0x32, 0x5c,
+	0x0a, 0x04, 0x49, 0x6e, 0x66, 0x6f, 0x12, 0x2a, 0x0a, 0x0b, 0x46, 0x69, 0x6e, 0x64, 0x56, 0x65,
+	0x72, 0x73, 0x69, 0x6f, 0x6e, 0x12, 0x09, 0x2e, 0x6e, 0x64, 0x6d, 0x2e, 0x4e, 0x75, 0x6c, 0x6c,
+	0x1a, 0x10, 0x2e, 0x6e, 0x64, 0x6d, 0x2e, 0x56, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x49, 0x6e,
+	0x66, 0x6f, 0x12, 0x28, 0x0a, 0x0c, 0x46, 0x69, 0x6e, 0x64, 0x4e, 0x6f, 0x64, 0x65, 0x4e, 0x61,
+	0x6d, 0x65, 0x12, 0x09, 0x2e, 0x6e, 0x64, 0x6d, 0x2e, 0x4e, 0x75, 0x6c, 0x6c, 0x1a, 0x0d, 0x2e,
+	0x6e, 0x64, 0x6d, 0x2e, 0x4e, 0x6f, 0x64, 0x65, 0x4e, 0x61, 0x6d, 0x65, 0x32, 0x2e, 0x0a, 0x05,
+	0x49, 0x53, 0x43, 0x53, 0x49, 0x12, 0x25, 0x0a, 0x06, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12,
+	0x09, 0x2e, 0x6e, 0x64, 0x6d, 0x2e, 0x4e, 0x75, 0x6c, 0x6c, 0x1a, 0x10, 0x2e, 0x6e, 0x64, 0x6d,
+	0x2e, 0x49, 0x53, 0x43, 0x53, 0x49, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x42, 0x05, 0x5a, 0x03,
+	0x6e, 0x64, 0x6d, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -263,12 +262,12 @@ var file_ndm_proto_goTypes = []interface{}{
 	(*Null)(nil),        // 3: ndm.Null
 }
 var file_ndm_proto_depIdxs = []int32{
-	3, // 0: ndm.Version.FindVersion:input_type -> ndm.Null
-	3, // 1: ndm.ServiceInfo.FindNodeName:input_type -> ndm.Null
-	3, // 2: ndm.ServiceInfo.FindISCSIStatus:input_type -> ndm.Null
-	1, // 3: ndm.Version.FindVersion:output_type -> ndm.VersionInfo
-	2, // 4: ndm.ServiceInfo.FindNodeName:output_type -> ndm.NodeName
-	0, // 5: ndm.ServiceInfo.FindISCSIStatus:output_type -> ndm.ISCSIStatus
+	3, // 0: ndm.Info.FindVersion:input_type -> ndm.Null
+	3, // 1: ndm.Info.FindNodeName:input_type -> ndm.Null
+	3, // 2: ndm.ISCSI.Status:input_type -> ndm.Null
+	1, // 3: ndm.Info.FindVersion:output_type -> ndm.VersionInfo
+	2, // 4: ndm.Info.FindNodeName:output_type -> ndm.NodeName
+	0, // 5: ndm.ISCSI.Status:output_type -> ndm.ISCSIStatus
 	3, // [3:6] is the sub-list for method output_type
 	0, // [0:3] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
@@ -359,180 +358,180 @@ var _ grpc.ClientConnInterface
 // is compatible with the grpc package it is being compiled against.
 const _ = grpc.SupportPackageIsVersion6
 
-// VersionClient is the client API for Version service.
+// InfoClient is the client API for Info service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
-type VersionClient interface {
+type InfoClient interface {
 	FindVersion(ctx context.Context, in *Null, opts ...grpc.CallOption) (*VersionInfo, error)
+	FindNodeName(ctx context.Context, in *Null, opts ...grpc.CallOption) (*NodeName, error)
 }
 
-type versionClient struct {
+type infoClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewVersionClient(cc grpc.ClientConnInterface) VersionClient {
-	return &versionClient{cc}
+func NewInfoClient(cc grpc.ClientConnInterface) InfoClient {
+	return &infoClient{cc}
 }
 
-func (c *versionClient) FindVersion(ctx context.Context, in *Null, opts ...grpc.CallOption) (*VersionInfo, error) {
+func (c *infoClient) FindVersion(ctx context.Context, in *Null, opts ...grpc.CallOption) (*VersionInfo, error) {
 	out := new(VersionInfo)
-	err := c.cc.Invoke(ctx, "/ndm.Version/FindVersion", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/ndm.Info/FindVersion", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// VersionServer is the server API for Version service.
-type VersionServer interface {
+func (c *infoClient) FindNodeName(ctx context.Context, in *Null, opts ...grpc.CallOption) (*NodeName, error) {
+	out := new(NodeName)
+	err := c.cc.Invoke(ctx, "/ndm.Info/FindNodeName", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// InfoServer is the server API for Info service.
+type InfoServer interface {
 	FindVersion(context.Context, *Null) (*VersionInfo, error)
+	FindNodeName(context.Context, *Null) (*NodeName, error)
 }
 
-// UnimplementedVersionServer can be embedded to have forward compatible implementations.
-type UnimplementedVersionServer struct {
+// UnimplementedInfoServer can be embedded to have forward compatible implementations.
+type UnimplementedInfoServer struct {
 }
 
-func (*UnimplementedVersionServer) FindVersion(context.Context, *Null) (*VersionInfo, error) {
+func (*UnimplementedInfoServer) FindVersion(context.Context, *Null) (*VersionInfo, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method FindVersion not implemented")
 }
-
-func RegisterVersionServer(s *grpc.Server, srv VersionServer) {
-	s.RegisterService(&_Version_serviceDesc, srv)
+func (*UnimplementedInfoServer) FindNodeName(context.Context, *Null) (*NodeName, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method FindNodeName not implemented")
 }
 
-func _Version_FindVersion_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func RegisterInfoServer(s *grpc.Server, srv InfoServer) {
+	s.RegisterService(&_Info_serviceDesc, srv)
+}
+
+func _Info_FindVersion_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(Null)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(VersionServer).FindVersion(ctx, in)
+		return srv.(InfoServer).FindVersion(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/ndm.Version/FindVersion",
+		FullMethod: "/ndm.Info/FindVersion",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(VersionServer).FindVersion(ctx, req.(*Null))
+		return srv.(InfoServer).FindVersion(ctx, req.(*Null))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-var _Version_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "ndm.Version",
-	HandlerType: (*VersionServer)(nil),
+func _Info_FindNodeName_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Null)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InfoServer).FindNodeName(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/ndm.Info/FindNodeName",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InfoServer).FindNodeName(ctx, req.(*Null))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+var _Info_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "ndm.Info",
+	HandlerType: (*InfoServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "FindVersion",
-			Handler:    _Version_FindVersion_Handler,
+			Handler:    _Info_FindVersion_Handler,
+		},
+		{
+			MethodName: "FindNodeName",
+			Handler:    _Info_FindNodeName_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
 	Metadata: "ndm.proto",
 }
 
-// ServiceInfoClient is the client API for ServiceInfo service.
+// ISCSIClient is the client API for ISCSI service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
-type ServiceInfoClient interface {
-	FindNodeName(ctx context.Context, in *Null, opts ...grpc.CallOption) (*NodeName, error)
-	FindISCSIStatus(ctx context.Context, in *Null, opts ...grpc.CallOption) (*ISCSIStatus, error)
+type ISCSIClient interface {
+	Status(ctx context.Context, in *Null, opts ...grpc.CallOption) (*ISCSIStatus, error)
 }
 
-type serviceInfoClient struct {
+type iSCSIClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewServiceInfoClient(cc grpc.ClientConnInterface) ServiceInfoClient {
-	return &serviceInfoClient{cc}
+func NewISCSIClient(cc grpc.ClientConnInterface) ISCSIClient {
+	return &iSCSIClient{cc}
 }
 
-func (c *serviceInfoClient) FindNodeName(ctx context.Context, in *Null, opts ...grpc.CallOption) (*NodeName, error) {
-	out := new(NodeName)
-	err := c.cc.Invoke(ctx, "/ndm.ServiceInfo/FindNodeName", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *serviceInfoClient) FindISCSIStatus(ctx context.Context, in *Null, opts ...grpc.CallOption) (*ISCSIStatus, error) {
+func (c *iSCSIClient) Status(ctx context.Context, in *Null, opts ...grpc.CallOption) (*ISCSIStatus, error) {
 	out := new(ISCSIStatus)
-	err := c.cc.Invoke(ctx, "/ndm.ServiceInfo/FindISCSIStatus", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/ndm.ISCSI/Status", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// ServiceInfoServer is the server API for ServiceInfo service.
-type ServiceInfoServer interface {
-	FindNodeName(context.Context, *Null) (*NodeName, error)
-	FindISCSIStatus(context.Context, *Null) (*ISCSIStatus, error)
+// ISCSIServer is the server API for ISCSI service.
+type ISCSIServer interface {
+	Status(context.Context, *Null) (*ISCSIStatus, error)
 }
 
-// UnimplementedServiceInfoServer can be embedded to have forward compatible implementations.
-type UnimplementedServiceInfoServer struct {
+// UnimplementedISCSIServer can be embedded to have forward compatible implementations.
+type UnimplementedISCSIServer struct {
 }
 
-func (*UnimplementedServiceInfoServer) FindNodeName(context.Context, *Null) (*NodeName, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method FindNodeName not implemented")
-}
-func (*UnimplementedServiceInfoServer) FindISCSIStatus(context.Context, *Null) (*ISCSIStatus, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method FindISCSIStatus not implemented")
+func (*UnimplementedISCSIServer) Status(context.Context, *Null) (*ISCSIStatus, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Status not implemented")
 }
 
-func RegisterServiceInfoServer(s *grpc.Server, srv ServiceInfoServer) {
-	s.RegisterService(&_ServiceInfo_serviceDesc, srv)
+func RegisterISCSIServer(s *grpc.Server, srv ISCSIServer) {
+	s.RegisterService(&_ISCSI_serviceDesc, srv)
 }
 
-func _ServiceInfo_FindNodeName_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _ISCSI_Status_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(Null)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ServiceInfoServer).FindNodeName(ctx, in)
+		return srv.(ISCSIServer).Status(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/ndm.ServiceInfo/FindNodeName",
+		FullMethod: "/ndm.ISCSI/Status",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceInfoServer).FindNodeName(ctx, req.(*Null))
+		return srv.(ISCSIServer).Status(ctx, req.(*Null))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _ServiceInfo_FindISCSIStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Null)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ServiceInfoServer).FindISCSIStatus(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/ndm.ServiceInfo/FindISCSIStatus",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceInfoServer).FindISCSIStatus(ctx, req.(*Null))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-var _ServiceInfo_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "ndm.ServiceInfo",
-	HandlerType: (*ServiceInfoServer)(nil),
+var _ISCSI_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "ndm.ISCSI",
+	HandlerType: (*ISCSIServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "FindNodeName",
-			Handler:    _ServiceInfo_FindNodeName_Handler,
-		},
-		{
-			MethodName: "FindISCSIStatus",
-			Handler:    _ServiceInfo_FindISCSIStatus_Handler,
+			MethodName: "Status",
+			Handler:    _ISCSI_Status_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

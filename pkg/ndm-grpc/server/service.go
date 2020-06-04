@@ -19,23 +19,42 @@ import (
 
 	protos "github.com/harshthakur9030/node-disk-manager/pkg/ndm-grpc/protos/ndm"
 	ps "github.com/mitchellh/go-ps"
+	"github.com/sirupsen/logrus"
 )
 
-//FindISCSIStatus returns the status of the service
-func (n *NodeType) FindISCSIStatus(ctx context.Context, null *protos.Null) (*protos.ISCSIStatus, error) {
-	processList, _ := ps.Processes()
+// Service helps in creation of constructor
+type Service struct {
+	log *logrus.Logger
+}
+
+// NewService is a constructor
+func NewService(l *logrus.Logger) *Service {
+	return &Service{l}
+}
+
+// Status returns the status of the service
+func (s *Service) Status(ctx context.Context, null *protos.Null) (*protos.ISCSIStatus, error) {
+	s.log.Info("Handling ISCSI status")
+
+	processList, err := ps.Processes()
+	if err != nil {
+		s.log.Error(err)
+	}
 
 	var found bool
 
 	for _, p := range processList {
 		if strings.Contains(p.Executable(), "iscsid") {
-			n.log.Infof("%v is running with process id %v", p.Executable(), p.Pid())
+			s.log.Infof("%v is running with process id %v", p.Executable(), p.Pid())
 			found = true
 		}
 	}
-	if found {
-		return &protos.ISCSIStatus{Status: "Running"}, nil
+	if !found {
+		// Note: When using clients like grpcurl, they might output empty response when converting to json
+		// Set the appropriate flags to avoid that.
+		return &protos.ISCSIStatus{Status: false}, nil
 	}
-	return &protos.ISCSIStatus{Status: "Not Running"}, nil
+
+	return &protos.ISCSIStatus{Status: true}, nil
 
 }
