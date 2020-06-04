@@ -8,14 +8,11 @@ service Version {
 
 service ServiceInfo{
     rpc FindNodeName(Null) returns (NodeName) ;
-    // rpc FindServiceStatus(ServiceName) returns (ServiceStatus);
+    rpc FindISCSIStatus(Null) returns (ISCSIStatus);
   }
-  
-message ServiceName{
-  string Name = 1;
-}
 
-message ServiceStatus{
+
+message ISCSIStatus{
   string Status = 1 ;
 }
 
