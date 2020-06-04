@@ -129,7 +129,7 @@ spec:
         image: harshthakur/gogrpcurl:latest
       # Container with the grpc
       - name: ndm-grpc-api
-        image: harshthakur/node-disk-manager-grpc-amd64:latest
+        image: harshthakur/node-disk-manager-grpc-amd64:latest # Need to change name to openebs later
         env:
         - name: NODE_NAME
           valueFrom:
