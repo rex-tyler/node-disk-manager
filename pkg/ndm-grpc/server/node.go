@@ -11,41 +11,30 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package main
+package server
 
 import (
-	"net"
+	"context"
 	"os"
 
 	protos "github.com/harshthakur9030/node-disk-manager/pkg/ndm-grpc/protos/ndm"
-	"github.com/harshthakur9030/node-disk-manager/pkg/ndm-grpc/server"
 	"github.com/sirupsen/logrus"
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/reflection"
 )
 
-func main() {
+//NodeType is for node info
+type NodeType struct {
+	log *logrus.Logger
+}
 
-	log := logrus.New()
-	log.Out = os.Stdout
+// NewNode is a constructor
+func NewNode(l *logrus.Logger) *NodeType {
+	return &NodeType{l}
+}
 
-	gs := grpc.NewServer()
-	vs := server.NewVersion(log)
-	ns := server.NewNode(log)
-
-	reflection.Register(gs)
-
-	protos.RegisterVersionServer(gs, vs)
-
-	protos.RegisterServiceInfoServer(gs, ns)
-
-	l, err := net.Listen("tcp", "0.0.0.0:9090")
-	if err != nil {
-		log.Error("Unable to listen", err)
-		os.Exit(1)
-	}
-
-	log.Info("Starting server")
-	gs.Serve(l)
+// FindNodeName is used to find the name of the worker node NDM is deployed on
+func (n *NodeType) FindNodeName(ctx context.Context, null *protos.Null) (*protos.NodeName, error) {
+	nodeName := os.Getenv("NODE_NAME")
+	n.log.Infof("Node name is %v", nodeName)
+	return &protos.NodeName{NodeName: nodeName}, nil
 
 }

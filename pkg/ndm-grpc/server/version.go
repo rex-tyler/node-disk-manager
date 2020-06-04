@@ -11,41 +11,31 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package main
+package server
 
 import (
-	"net"
-	"os"
-
 	protos "github.com/harshthakur9030/node-disk-manager/pkg/ndm-grpc/protos/ndm"
-	"github.com/harshthakur9030/node-disk-manager/pkg/ndm-grpc/server"
+	"github.com/openebs/node-disk-manager/pkg/version"
 	"github.com/sirupsen/logrus"
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/reflection"
+
+	"context"
 )
 
-func main() {
+// VersionType helps in creation of constructor
+type VersionType struct {
+	log *logrus.Logger
+}
 
-	log := logrus.New()
-	log.Out = os.Stdout
+// NewVersion is a constructor
+func NewVersion(l *logrus.Logger) *VersionType {
+	return &VersionType{l}
+}
 
-	gs := grpc.NewServer()
-	vs := server.NewVersion(log)
-	ns := server.NewNode(log)
+// FindVersion detects returns version and gitCommit
+func (v *VersionType) FindVersion(ctx context.Context, null *protos.Null) (*protos.VersionInfo, error) {
 
-	reflection.Register(gs)
+	v.log.Infof("Print Version %v %v", version.GetVersion(), version.GetGitCommit())
 
-	protos.RegisterVersionServer(gs, vs)
-
-	protos.RegisterServiceInfoServer(gs, ns)
-
-	l, err := net.Listen("tcp", "0.0.0.0:9090")
-	if err != nil {
-		log.Error("Unable to listen", err)
-		os.Exit(1)
-	}
-
-	log.Info("Starting server")
-	gs.Serve(l)
+	return &protos.VersionInfo{Version: version.GetVersion(), GitCommit: version.GetGitCommit()}, nil
 
 }
