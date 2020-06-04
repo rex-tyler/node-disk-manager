@@ -222,6 +222,10 @@ docker.ndm: build.ndm Dockerfile.ndm
 	@echo "--> Build docker image: $(DOCKER_IMAGE_NDM)"
 	@echo
 
+.PHONY: protos
+protos:
+	 protoc -I pkg/protos/ pkg/protos/ndm.proto --go_out=plugins=grpc:pkg/protos/ndm
+
 .PHONY: build.grpc
 build.grpc:
 	@echo '--> Building node-disk-manager-grpc binary...'

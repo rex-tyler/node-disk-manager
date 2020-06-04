@@ -18,7 +18,7 @@ import (
 	"fmt"
 	"strings"
 
-	protos "github.com/harshthakur9030/node-disk-manager/cmd/ndm-grpc/protos/ndm"
+	protos "github.com/harshthakur9030/node-disk-manager/pkg/protos/ndm"
 	ps "github.com/mitchellh/go-ps"
 )
 
