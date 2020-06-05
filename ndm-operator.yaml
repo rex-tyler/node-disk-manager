@@ -124,12 +124,8 @@ spec:
       hostPID: true
       serviceAccountName: openebs-ndm-operator
       containers:
-      # Temporary container which has grpcurl used to test the server        
-      - name: go 
-        image: harshthakur/gogrpcurl:latest
-      # Container with the grpc
       - name: ndm-grpc-api
-        image: harshthakur/node-disk-manager-grpc-amd64:latest # Need to change name to openebs later
+        image: openebs/node-disk-manager-grpc-amd64:ci 
         env:
         - name: NODE_NAME
           valueFrom:
